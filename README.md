@@ -8,8 +8,10 @@
 ## Instrument
 
 ```bash
+# elk 네임스페이스 생성
+$ kubectl apply -f namespace.yml
+
 # ElasticSearch
-$ kubectl apply -f elasticsearch-namespace.yml
 $ kubectl apply -f elasticsearch-configmap.yml
 $ kubectl apply -f elasticsearch-persistentvolume.yml
 $ kubectl apply -f elasticsearch-statefulset.yml
