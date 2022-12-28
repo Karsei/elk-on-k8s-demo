@@ -29,23 +29,27 @@ $ kubectl apply -f kibana-service.yml
 ```bash
 # 확인
 $ kubectl get all -n elk
-NAME                          READY   STATUS    RESTARTS   AGE
-pod/elasticsearch-node-0      1/1     Running   0          10m
-pod/kibana-7b777cbccd-gsccf   1/1     Running   0          3m34s
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/elasticsearch-node-0        1/1     Running   0          27m
+pod/kibana-7b777cbccd-gsccf     1/1     Running   0          20m
+pod/logstash-78c4ccd486-w9969   1/1     Running   0          6m5s
 
-NAME                             TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)             AGE
-service/elasticsearch            ClusterIP   None          <none>        9200/TCP,9300/TCP   20m
-service/elasticsearch-nodeport   NodePort    10.43.39.35   <none>        9200:30920/TCP      20m
-service/kibana                   NodePort    10.43.5.9     <none>        33000:30649/TCP     2s
+NAME                             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+service/elasticsearch            ClusterIP   None           <none>        9200/TCP,9300/TCP   37m
+service/elasticsearch-nodeport   NodePort    10.43.39.35    <none>        9200:30920/TCP      37m
+service/kibana                   NodePort    10.43.5.9      <none>        33000:30649/TCP     16m
+service/logstash                 NodePort    10.43.194.77   <none>        5000:31130/TCP      5m56s
 
-NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/kibana   1/1     1            1           3m35s
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kibana     1/1     1            1           20m
+deployment.apps/logstash   1/1     1            1           6m5s
 
-NAME                                DESIRED   CURRENT   READY   AGE
-replicaset.apps/kibana-7b777cbccd   1         1         1       3m35s
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/kibana-7b777cbccd     1         1         1       20m
+replicaset.apps/logstash-78c4ccd486   1         1         1       6m5s
 
 NAME                                  READY   AGE
-statefulset.apps/elasticsearch-node   1/1     10m
+statefulset.apps/elasticsearch-node   1/1     27m
 
 # ElasticSearch 확인
 $ curl localhost:30920
