@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: elk
+  labels:
+    app.kubernetes.io/name: apmserver
+  name: apmserver-config
+data:
+  apm-server.yml: |-
+    apm-server:
+      host: "0.0.0.0:8200"
+    output.elasticsearch:
+      hosts: [ "elasticsearch:9200" ]
+      index: "apm-%{[observer.version]}-%{[processor.event]}"
+    setup.template.name: "apm"
+    setup.template.pattern: "apm-*"

@@ -2,7 +2,9 @@
 
 ## Spec
 
-* Kubernetes v1.25.4 (stable)
+아래의 버전으로 진행하고 작동되는 것을 확인함
+
+* Kubernetes v1.23.6, v1.25.4 (stable)
 * ELK 7.17.4
 
 ## Instrument
@@ -16,6 +18,10 @@ $ kubectl apply -f elasticsearch-configmap.yml
 $ kubectl apply -f elasticsearch-persistentvolume.yml
 $ kubectl apply -f elasticsearch-statefulset.yml
 $ kubectl apply -f elasticsearch-service.yml
+
+# Elastic APM (선택)
+$ kubectl apply -f elasticapm-configmap.yml
+$ kubectl apply -f elasticapm-service.yml
 
 # Logstash
 $ kubectl apply -f logstash-configmap.yml
@@ -83,3 +89,4 @@ $ curl localhost:30920
 * https://choco-life.tistory.com/55
 * https://choco-life.tistory.com/56
 * https://github.com/sirzzang/elk-on-k8s-tutorial
+* https://saramin.github.io/2020-03-24-elastic-apm-1/

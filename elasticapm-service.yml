@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: elk
+  labels:
+    app.kubernetes.io/name: apmserver
+  name: apm-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: apmserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: apmserver
+    spec:
+      containers:
+      - name: apmserver
+        image: docker.elastic.co/apm/apm-server:7.17.4
+        ports:
+        - containerPort: 8200
+          name: http
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/share/apm-server/apm-server.yml
+          name: apmserver-config
+          readOnly: true
+          subPath: apm-server.yml
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: apmserver-config
+        name: apmserver-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: elk
+  name: apmserver-nodeport
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: apmserver
+  ports:
+  - name: apmserver-nodeport
+    nodePort: 30082
+    port: 8200
+    protocol: TCP
+    targetPort: 8200
